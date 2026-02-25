@@ -15,12 +15,9 @@ const StudentDashboard = ({ user, onLogout }) => {
   });
 
   useEffect(() => {
-    const loadProjects = () => {
-      const allProjects = JSON.parse(localStorage.getItem('projects') || '[]');
-      const userProjects = allProjects.filter(p => p.userId === user.id);
-      setProjects(userProjects);
-    };
-    loadProjects();
+    const allProjects = JSON.parse(localStorage.getItem('projects') || '[]');
+    const userProjects = allProjects.filter(p => p.userId === user.id);
+    setProjects(userProjects);
   }, [user.id]);
 
   const handleSubmit = (e) => {
