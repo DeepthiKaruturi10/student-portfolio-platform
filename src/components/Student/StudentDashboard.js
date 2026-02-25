@@ -15,14 +15,13 @@ const StudentDashboard = ({ user, onLogout }) => {
   });
 
   useEffect(() => {
+    const loadProjects = () => {
+      const allProjects = JSON.parse(localStorage.getItem('projects') || '[]');
+      const userProjects = allProjects.filter(p => p.userId === user.id);
+      setProjects(userProjects);
+    };
     loadProjects();
-  }, [loadProjects]);
-
-  const loadProjects = () => {
-    const allProjects = JSON.parse(localStorage.getItem('projects') || '[]');
-    const userProjects = allProjects.filter(p => p.userId === user.id);
-    setProjects(userProjects);
-  };
+  }, [user.id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,7 +45,9 @@ const StudentDashboard = ({ user, onLogout }) => {
       localStorage.setItem('projects', JSON.stringify(allProjects));
     }
 
-    loadProjects();
+    const allProjectsReload = JSON.parse(localStorage.getItem('projects') || '[]');
+    const userProjects = allProjectsReload.filter(p => p.userId === user.id);
+    setProjects(userProjects);
     resetForm();
   };
 
@@ -55,7 +56,8 @@ const StudentDashboard = ({ user, onLogout }) => {
       const allProjects = JSON.parse(localStorage.getItem('projects') || '[]');
       const filtered = allProjects.filter(p => p.id !== id);
       localStorage.setItem('projects', JSON.stringify(filtered));
-      loadProjects();
+      const userProjects = filtered.filter(p => p.userId === user.id);
+      setProjects(userProjects);
     }
   };
 
