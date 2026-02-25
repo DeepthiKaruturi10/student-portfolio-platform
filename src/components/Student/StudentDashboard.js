@@ -16,7 +16,7 @@ const StudentDashboard = ({ user, onLogout }) => {
 
   useEffect(() => {
     loadProjects();
-  }, [user.id]);
+  }, [loadProjects]);
 
   const loadProjects = () => {
     const allProjects = JSON.parse(localStorage.getItem('projects') || '[]');
